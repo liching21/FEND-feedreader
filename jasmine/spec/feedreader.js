@@ -156,7 +156,7 @@ $(function() {
 
             // TODO: Delete the last feed that is in the allFeeds array
             deleteLastFeed();
-            expect(name).toBeNull(); //since it is removed
+            expect(allFeeds[newIndex].name).toBeNull(); //since it is removed
         });
     });
 
