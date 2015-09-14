@@ -6,7 +6,7 @@ In this project you are given a web-based application that reads RSS feeds. The 
 
 To run the code, please visit the link below:
 
-lichingyew.com/FEND-feedreader
+http://www.lichingyew.com/FEND-feedreader
 
 
 ## Additional Testing Suites
