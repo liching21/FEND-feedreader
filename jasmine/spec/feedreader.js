@@ -40,13 +40,13 @@ $(function() {
     /* A new test suite named "The menu" */
     describe('The menu', function(){
 
-         // This test ensures the menu element is hidden by default
-         it('by default it is hidden', function(){
+        // This test ensures the menu element is hidden by default
+        it('by default it is hidden', function(){
             expect($('body').hasClass()).toBe(false);
-         });
+        });
 
-         // This test ensure that the menu changes visibility when the menu icon is clicked
-         it('changes visibility when the menu icon is clicked', function(){
+        // This test ensure that the menu changes visibility when the menu icon is clicked
+        it('changes visibility when the menu icon is clicked', function(){
 
             //The menu should display when it is clicked
             $('.menu-icon-link').trigger('click');
@@ -55,7 +55,7 @@ $(function() {
             //The menu should be hidden when it is clicked again
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(true);
-         });
+        });
 
     });
 
@@ -97,7 +97,7 @@ $(function() {
         // revert to the first feed after testing
         afterEach(function(done){
             loadFeed(0, done);
-        })
+        });
     });
 
     /* A new test suite named "Add New Feeds" */
@@ -106,32 +106,58 @@ $(function() {
         // declare the source of the RSS Feed
         var name = 'ABC';
         var url = 'http://www.abc.net.au/news/feed/51120/rss.xml';
-        /*
-        beforeEach(function(done){
-
-            addFeed(name, url);
-        });
-        */
+        var newIndex;
 
         //Write a test that allows the user to add a new feed
-        /*it('Addition', function(){
+        it('Addition', function(){
 
             // call the method to add the new Feed allFeeds
-            // TODO: create a method to add the Feed
+            // TODO: create a method to add the Feed at the end of the array
             addFeed(name, url);
-            var newIndex = allFeeds.length - 1;
-
+            newIndex = allFeeds.length - 1;
             expect(name).toBe(allFeeds[newIndex].name);
-        });*/
+        });
 
         //Test that the new feed is displaying correctly on the menu
         it('Showing in the menu', function(){
 
+            // call the method to add the new Feed allFeeds
+            addFeed(name, url);
+            newIndex = allFeeds.length - 1;
+
             //compare name to the value of last menu options
-            var lastMenuOption = $()
+            var lastMenuOption = $('.feed-list li a').last().text();
+            expect(name).toBe(lastMenuOption);
         });
 
+        // revert to the first feed after testing
+        afterEach(function(){
+            // Delete the last feed that was entered revert to original state
+            deleteLastFeed();
+        });
     });
 
+    /* This is a suite called 'Delete the Feed' */
+    describe('The Feeds', function(){
+
+        var name = 'ABC';
+        var url = 'http://www.abc.net.au/news/feed/51120/rss.xml';
+
+        // First the new feed is added
+        beforeEach(function(){
+
+            // add the feed to the end of the array
+            addFeed(name, url);
+            newIndex = allFeeds.length - 1;
+        });
+
+        // This will test if the feed is successfully deleted
+        it('are removed', function(){
+
+            // TODO: Delete the last feed that is in the allFeeds array
+            deleteLastFeed();
+            expect(name).toBeNull(); //since it is removed
+        });
+    });
 
 }());
