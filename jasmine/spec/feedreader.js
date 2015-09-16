@@ -19,11 +19,14 @@ $(function() {
         // Write a test that loops through each feed in the allFeeds object and ensures it
         // has a URL defined and that the URL is not empty.
         it('url is defined and not empty', function(){
-            for(var i = 0; i < allFeeds.length; i++){
+
+            var i = 0;
+            allFeeds.forEach(function(){
                 expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toBeNull();
+                expect(allFeeds[i].url.length).not.toBe(0);
                 expect(allFeeds[i].url).toContain("http://");
-            }
+                i++;
+            });
         });
 
         // test that loops through each feed in the allFeeds object and ensures it has a name defined
@@ -31,7 +34,7 @@ $(function() {
         it('name is defined and is not empty', function(){
             for(var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe(null);
+                expect(allFeeds[i].name.length).not.toBe(0);
             }
         });
     });
@@ -79,19 +82,20 @@ $(function() {
     describe('New Feed Selection', function(){
 
 
-        var headerTitle = $('.header-title').text();
+        var firstFeed;
 
         //update the feeds
         beforeEach(function(done){
             loadFeed(1,done);
+            firstFeed = $('.header-title').text();
         });
 
         // Write a test that ensures when a new feed is loaded
         // by the loadFeed function that the content actually changes.
         it('is loaded the content changes', function(){
 
-            var secondTitle = $('.header-title').text();
-            expect(headerTitle).not.toBe(secondTitle);
+            var secondFeed = $('.header-title').text();
+            expect(firstFeed).not.toBe(secondFeed);
         });
 
         // revert to the first feed after testing
@@ -112,9 +116,10 @@ $(function() {
         it('Addition', function(){
 
             // call the method to add the new Feed allFeeds
-            // TODO: create a method to add the Feed at the end of the array
+            // Create a method to add the Feed at the end of the array
             addFeed(name, url);
             newIndex = allFeeds.length - 1;
+            expect(allFeeds[newIndex].name).toBeDefined();
             expect(name).toBe(allFeeds[newIndex].name);
         });
 
@@ -154,7 +159,7 @@ $(function() {
         // This will test if the feed is successfully deleted
         it('are removed', function(){
 
-            // TODO: Delete the last feed that is in the allFeeds array
+            // Delete the last feed that is in the allFeeds array
             deleteLastFeed();
             expect(allFeeds[newIndex].name).toBeNull(); //since it is removed
         });
