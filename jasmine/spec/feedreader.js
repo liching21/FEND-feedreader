@@ -82,19 +82,30 @@ $(function() {
     describe('New Feed Selection', function(){
 
 
-        var firstFeed;
+        var firstFeed,secondFeed;
 
         //update the feeds
         beforeEach(function(done){
-            loadFeed(1,done);
-            firstFeed = $('.header-title').text();
+
+            // empty the feeds contents to clear any previous feed load
+            $('.feed').empty();
+
+            // first call back
+            loadFeed(1, function(){
+                firstFeed = $('.header-title').text();
+
+                // second call
+                loadFeed(2, function(){
+                    secondFeed = $('.header-title').text();
+                    done();
+                });
+            });
+
         });
 
         // Write a test that ensures when a new feed is loaded
         // by the loadFeed function that the content actually changes.
         it('is loaded the content changes', function(){
-
-            var secondFeed = $('.header-title').text();
             expect(firstFeed).not.toBe(secondFeed);
         });
 
