@@ -92,11 +92,11 @@ $(function() {
 
             // first call back
             loadFeed(1, function(){
-                firstFeed = $('.header-title').text();
+                firstFeed = $('.feed .entry h2').html();
 
                 // second call
                 loadFeed(2, function(){
-                    secondFeed = $('.header-title').text();
+                    secondFeed = $('.feed .entry h2').html();
                     done();
                 });
             });
@@ -175,5 +175,4 @@ $(function() {
             expect(allFeeds[newIndex].name).toBeNull(); //since it is removed
         });
     });
-
 }());
